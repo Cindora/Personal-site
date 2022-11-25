@@ -1,5 +1,6 @@
 import shutil
 from pathlib import Path
+import shutil
 
 from sqlalchemy import MetaData
 from flask_sqlalchemy import SQLAlchemy
@@ -23,14 +24,13 @@ class Post(db.Model):
     name = db.Column(db.String(512), nullable=False)
     text = db.Column(db.String(2048), nullable=False)
 
-    created_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now())
-    updated_on = db.Column(db.DateTime(timezone=True), server_default=db.func.now(), server_onupdate=db.func.now())
-
 
 def db_init():
     guestbook_init = [
-        {'name': 'Дмитрий', 'text': 'Это первая запись!'},
-        {'name': 'Дмитрий', 'text': 'Добавляйте свои отзывы!'},
+        {'name': 'Nikita', 'text': 'First message'},
+        {'name': 'Данил', 'text': 'Отличный сайт!'},
+        {'name': 'Name!', 'text': 'TextText'},
+        {'name': 'Sumo', 'text': 'Beautiful site, i like it'},
     ]
     # Check if db file already exists. If so, backup it
     db_file = Path(SQLITE_DATABASE_NAME)

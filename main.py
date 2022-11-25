@@ -1,5 +1,7 @@
 import sys
 
+from urllib import request
+
 from flask import Flask, render_template, request, redirect, url_for
 
 from config import SQLITE_DATABASE_NAME
@@ -10,6 +12,7 @@ app = Flask(__name__, template_folder='templates')
 # SQLAlchemy config
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + SQLITE_DATABASE_NAME
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
 
 # Init Database
 db.app = app
@@ -29,13 +32,11 @@ def index():
         if not text:
             render_template('index.html')
 
-        try:
-            p = Post(name=name, text=text)
-            db.session.add(p)
-            db.session.commit()
-        except:
-            print("Error while adding to database")
-            print(p)
+
+        p = Post(name=name, text=text)
+        db.session.add(p)
+        db.session.commit()
+
 
         return redirect(url_for('index'))
 
