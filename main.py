@@ -21,7 +21,7 @@ db.init_app(app)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.id.desc()).all()
 
     if request.method == 'POST':
         name = request.form.get('name', type=str, default='')
